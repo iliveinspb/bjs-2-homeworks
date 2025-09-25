@@ -92,3 +92,42 @@ class Library {
     return null;
   }
 }
+//дополнительное задание//
+
+class Student {
+  constructor(name, gender, age) {
+    this.name = name;
+    this.gender = gender;
+    this.age = age;
+    this.marks = {};
+  }
+
+  addMark(mark, subject) {
+    if (mark > 5 || mark < 2) return;
+
+    if (!this.marks.hasOwnProperty(subject)) {
+      this.marks[subject] = [];
+    }
+
+    this.marks[subject].push(mark);
+  }
+
+  getAverageBySubject(subject) {
+    if (!this.marks.hasOwnProperty(subject)) {
+      return 0;
+    } else {
+      let sum = this.marks[subject].reduce((acc, cur) => acc + cur, 0);
+      return sum / this.marks[subject].length;
+    }
+  }
+
+  getAverage() {
+    let allSubjects = Object.keys(this.marks);
+    if (allSubjects.length === 0) return 0;
+    let sum = 0;
+    for (let i = 0; i < allSubjects.length; i++) {
+      sum += this.getAverageBySubject(allSubjects[i]);
+    }
+    return sum / allSubjects.length;
+  }
+}
